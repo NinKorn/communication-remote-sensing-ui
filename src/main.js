@@ -13,7 +13,9 @@ Vue.use(VueAwesomeSwiper)
 Vue.use(ElementUI);
 
 import headerMain from './components/headerMain'
+import footer from './components/footer'
 Vue.component('header-main', headerMain)
+Vue.component('footer-main', footer)
 
 Vue.config.productionTip = false
 

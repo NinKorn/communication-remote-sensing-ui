@@ -12,10 +12,10 @@
 
 <template>
   <div class="gateway">
+    <!-- 顶部导航 -->
     <header-main></header-main>
-    <!-- @someSwiperEvent="callback" -->
+    <!-- 轮播图 -->
     <swiper :options="swiperOption" ref="mySwiper">
-      <!-- slides -->
       <swiper-slide>
         <img src="@/assets/banner-1.png" alt="">
       </swiper-slide>
@@ -25,11 +25,12 @@
       <swiper-slide>
         <img src="@/assets/banner-1.png" alt="">
       </swiper-slide>
-      <!-- Optional controls -->
       <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
+      <!-- <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div> -->
     </swiper>
+    <!-- 底部 -->
+    <footer-main></footer-main>
   </div>
 </template>
 <script>
@@ -44,7 +45,7 @@ export default {
         navigation: {
           nextEl: ".swiper-button-next", //前进按钮的css选择器或HTML元素。
           prevEl: ".swiper-button-prev", //后退按钮的css选择器或HTML元素。
-          hideOnClick: true, //点击slide时显示/隐藏按钮
+          // hideOnClick: true, //点击slide时显示/隐藏按钮
           disabledClass: "my-button-disabled", //前进后退按钮不可用时的类名。
           hiddenClass: "my-button-hidden" //按钮隐藏时的Class
         },
