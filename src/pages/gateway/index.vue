@@ -1,5 +1,12 @@
 <style lang="less" scoped>
 .gateway {
+  .swiper-slide {
+    width: 100%;
+    img{
+      width: 100%;
+      height: 300px;
+    }
+  }
 }
 </style>
 
@@ -9,9 +16,15 @@
     <!-- @someSwiperEvent="callback" -->
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
-      <swiper-slide>I'm Slide 1</swiper-slide>
-      <swiper-slide>I'm Slide 2</swiper-slide>
-      <swiper-slide>I'm Slide 3</swiper-slide>
+      <swiper-slide>
+        <img src="@/assets/banner-1.png" alt="">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="@/assets/banner-1.png" alt="">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="@/assets/banner-1.png" alt="">
+      </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button-prev" slot="button-prev"></div>
@@ -25,7 +38,7 @@ export default {
     return {
       swiperOption: {
         autoplay: {
-          delay: 3000, //自动切换的时间间隔，单位ms
+          delay: 10000, //自动切换的时间间隔，单位ms
           disableOnInteraction: true //用户操作swiper之后，是否禁止autoplay。
         },
         navigation: {

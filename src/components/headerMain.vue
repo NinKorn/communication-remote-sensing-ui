@@ -3,6 +3,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  padding: 0 30px;
+  top: 0;
+  left: 0;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
   .img {
     flex: 2;
@@ -29,8 +35,14 @@
     }
   }
   .user-info {
+    display: flex;
+    justify-content: flex-end;
     flex: 1;
     p {
+      color: #fff;
+    }
+    i{
+      font-size: 20px;
       color: #fff;
     }
   }
@@ -59,6 +71,7 @@
     <div class="user-info">
       <!-- <img src="" alt=""> -->
       <p>用户中心</p>
+      <i class="el-icon-user-solid"></i>
     </div>
   </div>
 </template>
