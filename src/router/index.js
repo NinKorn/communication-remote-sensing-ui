@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/pages/gateway'
 import loginReg from '@/pages/loginReg'
 import login from '@/pages/login'
+import register from '@/pages/register'
 
 Vue.use(Router)
 
@@ -17,7 +18,8 @@ export default new Router({
     {
       path: '/loginReg', component: loginReg,redirect:'/loginReg/login',
       children:[
-        {path: '/loginReg/login', component: login}
+        {path: '/loginReg/login', component: login},
+        {path: '/loginReg/register', component: register}
       ]
     }
   ]
