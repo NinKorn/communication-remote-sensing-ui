@@ -39,6 +39,7 @@
     justify-content: flex-end;
     flex: 1;
     p {
+      cursor: pointer;
       color: #fff;
     }
     i{
@@ -58,11 +59,11 @@
         mode="horizontal"
         @select="handleSelect"
       >
-        <el-menu-item index="主页">主页</el-menu-item>
+        <el-menu-item index="home">主页</el-menu-item>
         <el-menu-item index="服务市场">服务市场</el-menu-item>
         <el-menu-item index="数据中心">数据中心</el-menu-item>
         <el-menu-item index="数据工厂">数据工厂</el-menu-item>
-        <el-menu-item index="开发者中心">开发者中心</el-menu-item>
+        <el-menu-item index="developerCenter">开发者中心</el-menu-item>
         <el-menu-item index="资源中心">资源中心</el-menu-item>
         <el-menu-item index="示范应用">示范应用</el-menu-item>
         <el-menu-item index="系统管理">系统管理</el-menu-item>
@@ -70,7 +71,7 @@
     </div>
     <div class="user-info">
       <!-- <img src="" alt=""> -->
-      <p>用户中心</p>
+      <p @click="goUserCenter">用户中心</p>
       <i class="el-icon-user-solid"></i>
     </div>
   </div>
@@ -79,12 +80,17 @@
 export default {
   data() {
     return {
-      activeIndex: "主页"
+      activeIndex: "home"
     };
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      if(key == 'home' || key == 'developerCenter'){
+        this.$router.push('/gateway/'+key);
+      }
+    },
+    goUserCenter(){
+      this.$router.push('/gateway/userCenter');
     }
   }
 };

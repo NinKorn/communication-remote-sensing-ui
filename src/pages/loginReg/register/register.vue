@@ -20,6 +20,7 @@
       color: #fff;
       .go-login {
         position: absolute;
+        cursor: pointer;
         right: 0;
         top: 50%;
         font-size: 12px;
@@ -60,7 +61,7 @@
     <div class="from">
       <div class="title">
         <h2>注册</h2>
-        <span class="go-login">立即登陆</span>
+        <span class="go-login" @click="goLogin">立即登陆</span>
       </div>
       <div class="from-content">
         <el-form
@@ -190,7 +191,11 @@ export default {
       }
     };
   },
-  methods: {}
+  methods: {
+    goLogin(){
+      this.$router.push('/loginReg/login');
+    }
+  }
 };
 </script>
 

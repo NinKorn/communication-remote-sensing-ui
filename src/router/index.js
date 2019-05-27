@@ -1,15 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import gateway from '@/pages/gateway'
-import home from '@/pages/home'
-import loginReg from '@/pages/loginReg'
-import login from '@/pages/login'
-import register from '@/pages/register'
-import developerCenter from '@/pages/developerCenter'
-import resourceDown from '@/pages/resourceDown'
-import newService from '@/pages/newService'
-import createPro from '@/pages/createPro'
-import serviceUpgrade from '@/pages/serviceUpgrade'
+import loginReg from '@/pages/loginReg/loginReg.vue'
+import login from '@/pages/loginReg/login/login.vue'
+import register from '@/pages/loginReg/register/register.vue'
+
+import gateway from '@/pages/gateway/gateway.vue'
+import home from '@/pages/gateway/home/home.vue'
+
+import developerCenter from '@/pages/developerCenter/developerCenter.vue'
+import resourceDown from '@/pages/developerCenter/resourceDown/resourceDown.vue'
+import newService from '@/pages/developerCenter/newService/newService.vue'
+import createPro from '@/pages/developerCenter/newService/createPro/createPro.vue'
+import serviceUpgrade from '@/pages/developerCenter/newService/serviceUpgrade/serviceUpgrade.vue'
+
+import userCenter from '@/pages/userCenter/userCenter.vue'
 
 Vue.use(Router)
 
@@ -26,13 +30,16 @@ export default new Router({
           path: '/gateway/developerCenter', component: developerCenter, redirect: '/gateway/developerCenter/resourceDown',
           children: [
             { path: '/gateway/developerCenter/resourceDown', component: resourceDown },
-            { path: '/gateway/developerCenter/newService', component: newService ,redirect: '/gateway/developerCenter/newService/createPro',
-          children:[
-            { path: '/gateway/developerCenter/newService/createPro', component: createPro},
-            { path: '/gateway/developerCenter/newService/serviceUpgrade', component: serviceUpgrade}
-          ]}
+            {
+              path: '/gateway/developerCenter/newService', component: newService, redirect: '/gateway/developerCenter/newService/createPro',
+              children: [
+                { path: '/gateway/developerCenter/newService/createPro', component: createPro },
+                { path: '/gateway/developerCenter/newService/serviceUpgrade', component: serviceUpgrade }
+              ]
+            }
           ]
         },
+        { path: '/gateway/userCenter', component: userCenter }
       ]
     },
     {

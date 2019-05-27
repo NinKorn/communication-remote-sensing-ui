@@ -114,7 +114,7 @@
 <template>
   <div class="developer-center">
     <div class="img-title">
-      <img src="../../assets/developer-center-bgc.jpg" alt>
+      <img src="@/assets/developer-center-bgc.jpg" alt>
       <div class="title">
         <h2>开发者中心</h2>
         <div class="border"></div>
@@ -146,23 +146,24 @@ export default {
   data() {
     return {
       activeIndex: "resourceDown",
-      activeName:'资源下载'
+      activeName: "资源下载"
     };
   },
   methods: {
     handleSelect(key, keyPath) {
+      if (key == 3 || key == 4) return;
       switch (key) {
-        case 'resourceDown':
-          this.activeName = '资源下载';
+        case "resourceDown":
+          this.activeName = "资源下载";
           break;
-      case 'newService':
-          this.activeName = '在线服务';
+        case "newService":
+          this.activeName = "在线服务";
           break;
         default:
           break;
       }
-      
-      this.$router.push('/gateway/developerCenter/'+key);
+
+      this.$router.push("/gateway/developerCenter/" + key);
     }
   }
 };

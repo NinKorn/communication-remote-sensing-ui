@@ -19,6 +19,7 @@
       color: #fff;
       .go-register {
         position: absolute;
+        cursor: pointer;
         right: 0;
         top: 50%;
         font-size: 12px;
@@ -59,7 +60,7 @@
     <div class="from">
       <div class="title">
         <h2>登陆</h2>
-        <span class="go-register">立即注册</span>
+        <span class="go-register" @click="goReg">立即注册</span>
       </div>
       <div class="from-content">
         <el-form
@@ -135,6 +136,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    goReg(){
+      this.$router.push('/loginReg/register');
     }
   }
 };

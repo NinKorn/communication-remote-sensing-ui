@@ -38,7 +38,9 @@
         &:hover {
           .boder {
             transform: rotateY(180deg);
-            background: linear-gradient(to right, #7ee1ff 0%, #b23aff 100%);
+            // background: linear-gradient(to right, #7ee1ff 0%, #b23aff 100%);
+            background: linear-gradient(to right, #1688c4 0%, #1688c4 100%);
+            // background-color: #1688c4;
           }
         }
       }
@@ -58,7 +60,6 @@
         border: 1px solid #fff;
         transition: all 1s;
         &:hover{
-            
             box-shadow: 0 0 5px rgba(0,50,255,0.4),0 0 7px rgba(0,0,0,0.2);
             border: 1px solid #409eff;
         }

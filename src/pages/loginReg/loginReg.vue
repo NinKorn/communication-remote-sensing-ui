@@ -28,7 +28,7 @@
 <template>
   <div class="login-reg">
     <div class="content">
-      <img src="../../assets/login.png" alt>
+      <img src="@/assets/login.png" alt>
       <router-view></router-view>
     </div>
     <div class="login-footer">
