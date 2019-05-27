@@ -92,7 +92,23 @@
       }
     }
   }
-  
+  .child-title {
+    position: relative;
+    width: 100%;
+    padding: 30px 10px 10px;
+    h2 {
+      text-align: center;
+    }
+    .border {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background-color: #409eff;
+    }
+  }
 }
 </style>
 <template>
@@ -111,11 +127,15 @@
         mode="horizontal"
         @select="handleSelect"
       >
-        <el-menu-item index="1">资源下载</el-menu-item>
-        <el-menu-item index="2">在线服务</el-menu-item>
+        <el-menu-item index="resourceDown">资源下载</el-menu-item>
+        <el-menu-item index="newService">在线服务</el-menu-item>
         <el-menu-item index="3">开发者文档</el-menu-item>
         <el-menu-item index="4">我的服务</el-menu-item>
       </el-menu>
+    </div>
+    <div class="child-title">
+      <h2>{{ activeName }}</h2>
+      <div class="border"></div>
     </div>
     <router-view></router-view>
   </div>
@@ -125,11 +145,25 @@
 export default {
   data() {
     return {
-      activeIndex: "1"
+      activeIndex: "resourceDown",
+      activeName:'资源下载'
     };
   },
   methods: {
-    handleSelect(key, keyPath) {}
+    handleSelect(key, keyPath) {
+      switch (key) {
+        case 'resourceDown':
+          this.activeName = '资源下载';
+          break;
+      case 'newService':
+          this.activeName = '在线服务';
+          break;
+        default:
+          break;
+      }
+      
+      this.$router.push('/gateway/developerCenter/'+key);
+    }
   }
 };
 </script>

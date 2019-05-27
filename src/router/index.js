@@ -7,6 +7,9 @@ import login from '@/pages/login'
 import register from '@/pages/register'
 import developerCenter from '@/pages/developerCenter'
 import resourceDown from '@/pages/resourceDown'
+import newService from '@/pages/newService'
+import createPro from '@/pages/createPro'
+import serviceUpgrade from '@/pages/serviceUpgrade'
 
 Vue.use(Router)
 
@@ -21,9 +24,14 @@ export default new Router({
         { path: '/gateway/home', component: home },
         {
           path: '/gateway/developerCenter', component: developerCenter, redirect: '/gateway/developerCenter/resourceDown',
-          children: [{
-            path: '/gateway/developerCenter/resourceDown', component: resourceDown
-          }]
+          children: [
+            { path: '/gateway/developerCenter/resourceDown', component: resourceDown },
+            { path: '/gateway/developerCenter/newService', component: newService ,redirect: '/gateway/developerCenter/newService/createPro',
+          children:[
+            { path: '/gateway/developerCenter/newService/createPro', component: createPro},
+            { path: '/gateway/developerCenter/newService/serviceUpgrade', component: serviceUpgrade}
+          ]}
+          ]
         },
       ]
     },

@@ -1,23 +1,6 @@
 <style lang="less" scoped>
 .resource-down {
-  padding: 30px 50px;
-  .title {
-    position: relative;
-    width: 100%;
-    padding: 10px;
-    h2 {
-      text-align: center;
-    }
-    .border {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 2px;
-      background-color: #409eff;
-    }
-  }
+  padding: 10px 50px;
   .resource-box {
     .child-title {
       padding: 10px 0;
@@ -87,10 +70,6 @@
 
 <template>
   <div class="resource-down">
-    <div class="title">
-      <h2>资源下载</h2>
-      <div class="border"></div>
-    </div>
     <div class="resource-box">
       <div class="child-title">
         <h3>空间信息服务SDK</h3>
