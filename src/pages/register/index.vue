@@ -5,14 +5,15 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    margin-left: -80px;
     transform: translate(-50%, -50%);
     padding: 0px 30px 20px 0;
     border-radius: 10px;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
+    // background: linear-gradient(
+    //   to bottom right,
+    //   rgba(0, 0, 0, 0.7) 0%,
+    //   rgba(255, 255, 255, 0.1) 100%
+    // );
     .title {
       position: relative;
       padding: 10px 20px;
@@ -38,7 +39,7 @@
         .el-select {
           width: 100%;
         }
-        .el-button--small {
+        .el-button--info {
           margin-left: 10px;
         }
       }
@@ -67,7 +68,7 @@
           status-icon
           :rules="rules"
           ref="form"
-          size="small"
+          size="mini"
           label-width="100px"
           class="demo-ruleForm"
         >

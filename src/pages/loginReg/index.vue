@@ -1,21 +1,26 @@
 <style lang="less" scope>
 .login-reg {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-items: center;
   min-height: 100vh;
   background-color: #060427;
+
   .content {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
     img {
       width: 100%;
     }
-    
   }
+
   .login-footer {
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
   }
 }
@@ -32,9 +37,7 @@
   </div>
 </template>
 <script>
-export default {
-  
-};
+export default {};
 </script>
 
 

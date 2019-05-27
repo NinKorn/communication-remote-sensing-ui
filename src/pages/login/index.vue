@@ -38,7 +38,7 @@
         .el-select {
           width: 100%;
         }
-        .el-button--small {
+        .el-button--info {
           margin-left: 10px;
         }
       }
