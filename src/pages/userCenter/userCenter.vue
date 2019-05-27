@@ -219,7 +219,7 @@
           </li>
           <li>
             <h3>修改密码</h3>
-            <el-button plain>点击修改</el-button>
+            <el-button plain @click="goChangPass">点击修改</el-button>
           </li>
         </ul>
       </div>
@@ -235,7 +235,10 @@ export default {
     };
   },
   methods: {
-    handleSelect() {}
+    handleSelect() {},
+    goChangPass(){
+        this.$router.push('/changPass');
+    }
   }
 };
 </script>

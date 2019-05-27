@@ -14,6 +14,7 @@ import createPro from '@/pages/developerCenter/newService/createPro/createPro.vu
 import serviceUpgrade from '@/pages/developerCenter/newService/serviceUpgrade/serviceUpgrade.vue'
 
 import userCenter from '@/pages/userCenter/userCenter.vue'
+import changPass from '@/pages/userCenter/changPass/changPass.vue'
 
 Vue.use(Router)
 
@@ -48,6 +49,9 @@ export default new Router({
         { path: '/loginReg/login', component: login },
         { path: '/loginReg/register', component: register }
       ]
+    },
+    {
+      path: '/changPass', component: changPass
     }
   ]
 })
