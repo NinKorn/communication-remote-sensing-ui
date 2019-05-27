@@ -5,7 +5,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  background-color: #fff;
+//   background-color: #fff;
   padding: 20px;
   .border {
     width: 60%;
