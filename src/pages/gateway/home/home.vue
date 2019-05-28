@@ -297,7 +297,7 @@
         </div>
         <div class="main-box">
           <div class="demonstration-box">
-            <i class="el-icon-truck"></i>
+            <i class="iconfont icon-wuliuxinxi"></i>
             <div class="title">
               <h3>物流示范</h3>
             </div>
@@ -309,7 +309,7 @@
             </div>
           </div>
           <div class="demonstration-box">
-            <i class="el-icon-truck"></i>
+            <i class="iconfont icon-config-audit"></i>
             <div class="title">
               <h3>资源审计</h3>
             </div>
@@ -321,7 +321,7 @@
             </div>
           </div>
           <div class="demonstration-box">
-            <i class="el-icon-truck"></i>
+            <i class="iconfont icon-qitaleiziranzaihai"></i>
             <div class="title">
               <h3>减灾示范</h3>
             </div>
