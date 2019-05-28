@@ -1,22 +1,20 @@
 <style lang="less">
 .login {
+  min-height: 500px;
+  margin-top: 50px;
+  padding: 50px 0;
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px;
+  }
   .from {
-    width: 450px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0px 30px 20px 0;
-    border-radius: 10px;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
+    padding: 10px 50px 30px;
+    width: 550px;
+    background-color: #fff;
     .title {
       position: relative;
-      padding: 10px 20px;
-      color: #fff;
+      padding: 10px 20px 20px;
       .go-register {
         position: absolute;
         cursor: pointer;
@@ -32,7 +30,7 @@
     }
     .from-content {
       .el-form-item__label {
-        color: #fff;
+        // color: #fff;
       }
       .el-form-item__content {
         display: flex !important;
@@ -57,6 +55,7 @@
 
 <template>
   <div class="login">
+    <h3>通导遥一站式服务平台</h3>
     <div class="from">
       <div class="title">
         <h2>登陆</h2>
@@ -137,8 +136,8 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    goReg(){
-      this.$router.push('/loginReg/register');
+    goReg() {
+      this.$router.push("/loginReg/register");
     }
   }
 };
