@@ -8,6 +8,7 @@
   justify-items: center;
   min-height: 100vh;
   background-color: #F2F6FC;
+  // background: linear-gradient(to bottom, #F2F6FC 0%, #ccc 100%);
   .login-footer {
     width: 100%;
   }

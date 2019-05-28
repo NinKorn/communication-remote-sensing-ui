@@ -103,7 +103,7 @@
                   position: absolute;
                   padding: 10px;
                   color: #fff;
-                  transition: all 1s;
+                  transition: all 0.5s;
                 }
                 .el-button {
                   position: absolute;
@@ -113,7 +113,7 @@
                   background-color: transparent;
                   padding: 7px 20px;
                   color: #409eff;
-                  transition: all 1s;
+                  transition: all 0.5s;
                 }
                 &:hover {
                   p {
@@ -199,11 +199,69 @@
         display: flex;
         justify-content: center;
         margin: 0 auto;
-        width: 60%;
+        width: 70%;
         height: 200px;
-        .service-box {
-          width: 200px;
-          background-color: #ccc;
+        .swiper-slide {
+          display: flex;
+          justify-content: space-between;
+          width: 100% !important;
+          padding: 0 30px;
+          .service-img-box {
+            position: relative;
+            width: 25%;
+            overflow: hidden;
+            
+            img {
+              width: 100%;
+              height: 100%;
+            }
+            .info-box {
+              position: absolute;
+              transform: translateX(-100%);
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              padding: 10px;
+              color: #fff;
+              background-color: rgba(0,0,0,0.5);
+              transition: all 0.5s;
+              h3{
+                text-align: center;
+                padding: 40px 0 ;
+              }
+              p{
+                height: 20px;
+                line-height: 20px;
+              }
+            }
+            .info-box-hover {
+              position: absolute;
+              transform: translateX(0);
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background-color: rgba(0,0,0,0.3);
+              transition: all 0.5s;
+              h3{
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%);
+                text-align: center;
+                color: #fff;
+              }
+            }
+            &:hover{
+              .info-box{
+                transform: translateX(0);
+              }
+              .info-box-hover{
+                transform: translateX(100%);
+              }
+            }
+          }
         }
       }
     }
@@ -322,16 +380,65 @@
           </div>
         </div>
       </div>
-      <!-- 在线服务 -->
+      <!-- 我的服务 -->
       <div class="main-item">
         <div class="title">
           <span class="title-text">
-            <h2>在线服务</h2>
+            <h2>我的服务</h2>
           </span>
         </div>
         <div class="service-content">
-          <div class="service-box">服务升级</div>
-          <div class="service-box">创建项目</div>
+          <swiper :options="swiperService" ref="mySwiper">
+            <swiper-slide>
+              <div class="service-img-box">
+                <img src="@/assets/my-service.png" alt>
+                <div class="info-box">
+                  <h3>影像服务</h3>
+                  <div class="info">
+                    <p>单位：武汉大学</p>
+                    <p>说明：影像拉伸服务</p>
+                    <p>来源：第三方服务</p>
+                  </div>
+                </div>
+                <div class="info-box-hover">
+                  <h3>影像服务</h3>
+                </div>
+              </div>
+              <div class="service-img-box">
+                <img src="@/assets/my-service.png" alt>
+                <div class="info-box">
+                  <h3>影像服务</h3>
+                  <div class="info">
+                    <p>单位：武汉大学</p>
+                    <p>说明：影像拉伸服务</p>
+                    <p>来源：第三方服务</p>
+                  </div>
+
+                </div>
+                <div class="info-box-hover">
+                  <h3>影像服务</h3>
+                </div>
+              </div>
+              <div class="service-img-box">
+                <img src="@/assets/my-service.png" alt>
+                <div class="info-box">
+                  <h3>影像服务</h3>
+                  <div class="info">
+                    <p>单位：武汉大学</p>
+                    <p>说明：影像拉伸服务</p>
+                    <p>来源：第三方服务</p>
+                  </div>
+                </div>
+                <div class="info-box-hover">
+                  <h3>影像服务</h3>
+                </div>
+              </div>
+            </swiper-slide>
+            <swiper-slide>2</swiper-slide>
+            <swiper-slide>3</swiper-slide>
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
+          </swiper>
         </div>
       </div>
     </div>
@@ -360,6 +467,15 @@ export default {
           dynamicBullets: true, //动态分页器，当你的slide很多时，开启后，分页器小点的数量会部分隐藏。
           hideOnClick: true, //默认分页器会一直显示。这个选项设置为true时点击Swiper会隐藏/显示分页器。
           clickable: true //此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+        }
+      },
+      //服务的轮播
+      swiperService: {
+        navigation: {
+          nextEl: ".swiper-button-next", //前进按钮的css选择器或HTML元素。
+          prevEl: ".swiper-button-prev", //后退按钮的css选择器或HTML元素。
+          disabledClass: "my-button-disabled", //前进后退按钮不可用时的类名。
+          hiddenClass: "my-button-hidden" //按钮隐藏时的Class
         }
       }
     };

@@ -8,6 +8,7 @@
      .nav-box{
          padding: 10px 20px;
          font-size: 16px;
+         cursor: pointer;
          &.active{
              border-bottom: 2px solid #1688c4;
          }

@@ -47,7 +47,7 @@
         <el-button type="primary" disabled>提交</el-button>
     </div>
     <span class="iconfont icon-Down-" v-show="!isShow" @click="isShow = !isShow" ></span>
-    <span class="iconfont icon-Up-" v-show="isShow" @click="isShow = !isShow" ></span>
+    <!-- <span class="iconfont icon-Up-" v-show="isShow" @click="isShow = !isShow" ></span> -->
     
   </div>
 </template>
