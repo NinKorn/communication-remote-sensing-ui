@@ -38,6 +38,9 @@
     display: flex;
     justify-content: flex-end;
     flex: 1;
+    .el-dropdown {
+      color: #fff;
+    }
     p {
       cursor: pointer;
       color: #fff;
@@ -73,23 +76,20 @@
       <!-- <img src="" alt=""> -->
       <!-- <p @click="goUserCenter" >用户中心</p>
       -->
-      <el-row class="block-col-2">
-        <el-col :span="12">
-          <el-dropdown>
+          <el-dropdown @command="handleCommand"> 
             <span class="el-dropdown-link">
-              <i class="el-icon-user-solid"></i>
+             {{ user.name }} <i class="el-icon-user-solid"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>用户中心</el-dropdown-item>
-              <el-dropdown-item>退出登陆</el-dropdown-item>
+              <el-dropdown-item command="userCenter">用户中心</el-dropdown-item>
+              <el-dropdown-item command="goOut">退出登陆</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-        </el-col>
-      </el-row>
     </div>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -97,14 +97,34 @@ export default {
     };
   },
   methods: {
+    // 用户头像下拉列表选择器
+    handleCommand(val){
+      if(val == 'userCenter'){
+        this.goUserCenter();
+      }else if(val == 'goOut'){
+        localStorage.clear('token');
+        this.goUserLogin();
+      }
+    },
+    // 导航选择
     handleSelect(key, keyPath) {
       if (key == "home" || key == "developerCenter") {
         this.$router.push("/gateway/" + key);
       }
     },
+    // 跳转用户中心
     goUserCenter() {
       this.$router.push("/gateway/userCenter");
+    },
+    // 跳转到登陆页面
+    goUserLogin() {
+      this.$router.push("/loginReg/login");
     }
+  },
+  computed:{
+    ...mapState({
+      user: state=>state.user.user
+    }),
   }
 };
 </script>

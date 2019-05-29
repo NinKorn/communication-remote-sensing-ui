@@ -6,7 +6,9 @@ export default {
    
     },
     mutations: {
-        setPerms(state, perms){  // 用户权限标识集合
+        setPerms(state, perms){  
+            // 用户权限标识集合
+            console.log(perms,'user');
             state.user = perms;
         }
     },

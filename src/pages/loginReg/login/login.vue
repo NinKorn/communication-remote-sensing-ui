@@ -162,6 +162,16 @@ export default {
   created() {
     this.getCaptcha();
   },
+  computed: {
+    setPerms: {
+      get() {
+        return this.$store.state.user.user;
+      },
+      set(val) {
+        this.$store.commit("setPerms", val);
+      }
+    }
+  },
   methods: {
     // 生成随机验证码
     randomNum(min, max) {
@@ -198,11 +208,13 @@ export default {
           this.$api.login.login(data).then(res => {
             console.log(res, "登陆成功");
             if (res.data.code == 200) {
-              this.$store.commit("setPerms", res.data.data);
+              // 将用户信息存入vuex
+              this.setPerms = res.data.data;
               localStorage.setItem("token", res.data.data.token);
               this.$notify.success({
-                message: '登陆成功'
+                message: "登陆成功"
               });
+              this.$router.push("/");
             } else {
               this.$notify.info({
                 message: res.data.data.msg
