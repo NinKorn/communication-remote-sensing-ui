@@ -57,7 +57,7 @@ export default {
     },
     contentHeight: {
       type: Number,
-      default: 38
+      default: 34
     }
   },
   methods: {

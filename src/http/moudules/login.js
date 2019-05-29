@@ -12,11 +12,19 @@ export const login = data => {
         data
     })
 }
-
-// 登出
-export const logout = () => {
+// 获取验证码
+export const captcha = () => {
     return axios({
-        url: 'logout',
-        method: 'get'
+        url: 'captcha.jpg',
+        method: 'get',
+        responseType: 'arraybuffer'
     })
 }
+
+// 登出
+// export const logout = () => {
+//     return axios({
+//         url: 'logout',
+//         method: 'get'
+//     })
+// }

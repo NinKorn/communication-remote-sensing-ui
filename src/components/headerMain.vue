@@ -42,7 +42,7 @@
       cursor: pointer;
       color: #fff;
     }
-    i{
+    i {
       font-size: 20px;
       color: #fff;
     }
@@ -71,8 +71,21 @@
     </div>
     <div class="user-info">
       <!-- <img src="" alt=""> -->
-      <p @click="goUserCenter">用户中心</p>
-      <i class="el-icon-user-solid"></i>
+      <!-- <p @click="goUserCenter" >用户中心</p>
+      -->
+      <el-row class="block-col-2">
+        <el-col :span="12">
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              <i class="el-icon-user-solid"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>用户中心</el-dropdown-item>
+              <el-dropdown-item>退出登陆</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -85,12 +98,12 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      if(key == 'home' || key == 'developerCenter'){
-        this.$router.push('/gateway/'+key);
+      if (key == "home" || key == "developerCenter") {
+        this.$router.push("/gateway/" + key);
       }
     },
-    goUserCenter(){
-      this.$router.push('/gateway/userCenter');
+    goUserCenter() {
+      this.$router.push("/gateway/userCenter");
     }
   }
 };

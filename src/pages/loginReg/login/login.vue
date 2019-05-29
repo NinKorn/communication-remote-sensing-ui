@@ -37,8 +37,15 @@
         .el-select {
           width: 100%;
         }
-        .code{
+        .code {
           margin-left: 10px;
+          // width: 60%;
+          img {
+            width: 100%;
+          }
+          .s-canvas {
+            height: 34px;
+          }
         }
         .el-button--info {
           margin-left: 10px;
@@ -74,29 +81,31 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="活动名称">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="用户名" prop="account">
+            <el-input v-model="form.account"></el-input>
           </el-form-item>
-          <el-form-item label="单位">
+
+          <!-- <el-form-item label="单位">
             <el-select v-model="form.region" placeholder="请选择单位">
               <el-option label="武汉大学" value="shanghai"></el-option>
               <el-option label="第二个" value="beijing"></el-option>
             </el-select>
+          </el-form-item>-->
+
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="form.pass" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="验证码">
-            <el-input v-model="form.vfCode"></el-input>
-            <!-- <el-button type="info">获取验证码</el-button> -->
+
+          <el-form-item label="验证码" prop="captcha">
+            <el-input v-model="form.captcha"></el-input>
             <div class="code" @click="refreshCode">
               <s-identify :identifyCode="identifyCode"></s-identify>
+              <!-- <img :src="base64Url"> -->
             </div>
           </el-form-item>
         </el-form>
-
         <div class="button">
-          <el-button type="primary">登陆</el-button>
+          <el-button type="primary" @click="login('form')">登陆</el-button>
         </div>
       </div>
     </div>
@@ -106,38 +115,57 @@
 <script>
 export default {
   data() {
+    // 验证用户名
+    var validateName = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入用户名"));
+      } else {
+        callback();
+      }
+    };
+    // 验证密码
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
         callback();
+      }
+    };
+    // 验证验证码
+    var validateVfCode = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入验证码"));
+      } else {
+        if (value === this.identifyCode) {
+          callback();
+        } else {
+          callback(new Error("验证码输入错误"));
+        }
       }
     };
     return {
       identifyCodes: "1234567890",
       identifyCode: "",
+      base64Url: "",
       form: {
-        name: "",
-        region: "",
-        pass: "",
-        checkPass: "",
-        vfCode: ""
+        account: "",
+        password: "",
+        captcha: ""
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }]
+        account: [{ validator: validateName, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
+        captcha: [{ validator: validateVfCode, trigger: "blur" }]
       }
     };
   },
+  created() {
+    this.getCaptcha();
+  },
   methods: {
+    // 生成随机验证码
     randomNum(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
-    },
-    refreshCode() {
-      this.identifyCode = "";
-      this.makeCode(this.identifyCodes, 4);
     },
     makeCode(o, l) {
       for (let i = 0; i < l; i++) {
@@ -147,22 +175,67 @@ export default {
       }
       console.log(this.identifyCode);
     },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+    // 从新获取验证码
+    refreshCode() {
+      this.identifyCode = "";
+      this.makeCode(this.identifyCodes, 4);
+      // this.getCaptcha();
+    },
+    // 跳转注册页面
+    goReg() {
+      this.$router.push("/loginReg/register");
+    },
+    // 登陆
+    login(form) {
+      this.$refs[form].validate(valid => {
         if (valid) {
-          alert("submit!");
+          console.log("验证成功");
+          let data = {
+            account: this.form.account,
+            password: this.form.password
+          };
+          console.log(data);
+          this.$api.login.login(data).then(res => {
+            console.log(res, "登陆成功");
+            if (res.data.code == 200) {
+              this.$store.commit("setPerms", res.data.data);
+              localStorage.setItem("token", res.data.data.token);
+              this.$notify.success({
+                message: '登陆成功'
+              });
+            } else {
+              this.$notify.info({
+                message: res.data.data.msg
+              });
+            }
+          });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
+      console.log(this.form);
+      // this.$refs[form].validateField('name');
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-    goReg() {
-      this.$router.push("/loginReg/register");
+    // 获取验证码
+    getCaptcha() {
+      this.$api.login.captcha().then(res => {
+        console.log(res.data, "验证码");
+        let imgUrl =
+          "data:image/png;base64," +
+          btoa(
+            new Uint8Array(res.data).reduce(
+              (data, byte) => data + String.fromCharCode(byte),
+              ""
+            )
+          );
+        this.base64Url = imgUrl;
+      });
     }
+
+    // 表单重置
+    // resetForm(formName) {
+    //   this.$refs[formName].resetFields();
+    // },
   }
 };
 </script>

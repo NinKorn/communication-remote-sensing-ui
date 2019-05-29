@@ -38,8 +38,11 @@
         .el-select {
           width: 100%;
         }
-        .code{
+        .code {
           margin-left: 10px;
+          .s-canvas {
+            height: 34px;
+          }
         }
         .el-button--info {
           margin-left: 10px;
@@ -75,45 +78,46 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="用户名">
+          <el-form-item prop="name" label="用户名">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
 
-          <el-form-item label="单位">
-            <el-select v-model="form.region" placeholder="请选择单位">
-              <el-option label="武汉大学" value="shanghai"></el-option>
-              <el-option label="第二个" value="beijing"></el-option>
+          <el-form-item label="单位" prop="deptName">
+            <el-select v-model="form.deptName" placeholder="请选择单位">
+              <el-option
+                v-for="item in deptNames"
+                :label="item.name"
+                :value="item.name"
+                :key="item.id"
+              ></el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item
-            prop="email"
-            label="邮箱"
-            :rules="[
-                    { required: false, message: '请输入邮箱地址', trigger: 'blur' },
-                    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
-                    ]"
-          >
-            <el-input v-model="form.email"></el-input>
+          <el-form-item prop="email" label="邮箱">
+            <el-input v-model="form.email "></el-input>
           </el-form-item>
 
-          <el-form-item prop="phone" label="手机号">
-            <el-input v-model="form.phone "></el-input>
+          <el-form-item prop="mobile" label="手机号">
+            <el-input v-model="form.mobile "></el-input>
+          </el-form-item>
+
+          <el-form-item prop="realName" label="真实姓名">
+            <el-input v-model="form.realName"></el-input>
           </el-form-item>
 
           <el-form-item prop="idNum" label="身份证">
             <el-input v-model="form.idNum "></el-input>
           </el-form-item>
 
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="form.pass" autocomplete="off"></el-input>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item label="确认密码" prop="checkPass">
             <el-input type="password" v-model="form.checkPass" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="验证码">
+          <el-form-item prop="vfCode" label="验证码">
             <el-input v-model="form.vfCode"></el-input>
             <!-- <el-button type="info">获取验证码</el-button> -->
             <div class="code" @click="refreshCode">
@@ -122,7 +126,7 @@
           </el-form-item>
         </el-form>
         <div class="button">
-          <el-button type="primary">登陆</el-button>
+          <el-button type="primary" @click="register('form')">注册</el-button>
         </div>
       </div>
     </div>
@@ -132,6 +136,45 @@
 <script>
 export default {
   data() {
+    // 验证用户名
+    var checkName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("用户名不能为空"));
+      } else {
+        callback();
+      }
+    };
+    // 验证真实名
+    var checkRealName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("请填写您的真实姓名"));
+      } else {
+        callback();
+      }
+    };
+    // 验证单位选择
+    var checkRegion = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("请选择单位"));
+      } else {
+        callback();
+      }
+    };
+    // 验证邮箱
+    var checkEmail = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("邮箱不能为空"));
+      } else {
+        const reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        console.log(reg.test(value));
+        if (reg.test(value)) {
+          callback();
+        } else {
+          return callback(new Error("请输入正确的邮箱"));
+        }
+      }
+    };
+    // 验证密码
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -142,15 +185,17 @@ export default {
         callback();
       }
     };
+    // 验证重新输入的密码
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.form.pass) {
+      } else if (value !== this.form.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
     };
+    // 验证电话号码
     var checkPhone = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("手机号不能为空"));
@@ -164,6 +209,19 @@ export default {
         }
       }
     };
+    // 验证验证码
+    var checkVfCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("请输入验证码"));
+      } else {
+        if (value === this.identifyCode) {
+          callback();
+        } else {
+          return callback(new Error("请输入正确的验证码"));
+        }
+      }
+    };
+    // 验证身份证
     var checkIdNum = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("身份证号不能为空"));
@@ -178,30 +236,43 @@ export default {
       }
     };
     return {
-      identifyCodes: "1234567890",
+      identifyCodes: "1234",
       identifyCode: "",
+      deptNames: [],
       form: {
-        name: "",
-        region: "",
+        name: "", //用户名
+        deptName: "", //单位
         email: "",
-        phone: "",
-        idNum: "",
-        pass: "",
-        checkPass: "",
-        vfCode: ""
+        mobile: "",
+        idNum: "", //身份证
+        realName: "", //真实姓名
+        password: "", //密码
+        checkPass: "", //重新输入密码
+        vfCode: "" //验证码
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        name: [{ validator: checkName, trigger: "blur" }],
+        realName: [{ validator: checkRealName, trigger: "blur" }],
+        deptName: [{ validator: checkRegion, trigger: "blur" }],
+        email: [{ validator: checkEmail, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        phone: [{ validator: checkPhone, trigger: "blur" }],
+        mobile: [{ validator: checkPhone, trigger: "blur" }],
+        vfCode: [{ validator: checkVfCode, trigger: "blur" }],
         idNum: [{ validator: checkIdNum, trigger: "blur" }]
       }
     };
   },
+  created() {
+    this.refreshCode();
+    this.getDeptAll();
+  },
   methods: {
+    // 跳转到登陆页面
     goLogin() {
       this.$router.push("/loginReg/login");
     },
+    // 随机验证码
     randomNum(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
     },
@@ -216,6 +287,48 @@ export default {
         ];
       }
       console.log(this.identifyCode);
+    },
+    // 随机验证码结束
+    // 注册
+    register(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          // console.log("验证成功");
+          let userInfo = {
+            name: this.form.name,
+            deptName: this.form.deptName,
+            email: this.form.email,
+            mobile: this.form.mobile,
+            idNum: this.form.idNum,
+            realName: this.form.realName,
+            password: this.form.password
+          };
+          console.log(userInfo);
+          //请求注册
+          this.$api.register.register(userInfo).then(res => {
+            console.log(res);
+            if (res.data.code == 200) {
+              this.$notify.success({
+                title: "注册成功",
+                message: '跳转登陆'
+              });
+            }else {
+              this.$notify.info({
+                title: res.data.msg
+              });
+            }
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    // 获取单位列表
+    getDeptAll() {
+      this.$api.register.deptAll().then(res => {
+        console.log(res, "aaa");
+        this.deptNames = res.data.data;
+      });
     }
   }
 };

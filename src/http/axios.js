@@ -1,6 +1,5 @@
 import axios from 'axios';
 import config from './config';
-// import Cookies from "js-cookie";
 import router from '@/router'
 
 // 使用vuex做全局loading时使用
@@ -10,45 +9,40 @@ export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
       baseURL: config.baseUrl,
-      headers: config.headers,
-      timeout: config.timeout,
-      withCredentials: config.withCredentials
+      headers: config.headers
     })
 
     // request 拦截器
     instance.interceptors.request.use(
       config => {
-        // let token = Cookies.get('token')
-        let token = localStorage.getItem('token');
-        // 1. 请求开始的时候可以结合 vuex 开启全屏 loading 动画
-        // console.log(store.state.loading)
-        // console.log('准备发送请求...')
+        // let token = localStorage.getItem('token');
+        // console.log(token);
         // 2. 带上token
-        if (token) {
-          config.headers.token = token
-        } else {
-          // 重定向到登录页面
-          router.push('/login')
-        }
+        // if (token) {
+        //   config.headers.token = token
+        //   // else if(!token && ){}
+        // } else {
+        //   // 重定向到登录页面
+        //   router.push('loginReg/login')
+        // }
         // 3. 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         // if (config.method === 'post') {
-          // if (config.data.__proto__ === FormData.prototype
-          //   || config.url.endsWith('path')
-          //   || config.url.endsWith('mark')
-          //   || config.url.endsWith('patchs')
-          // ) {
+        // if (config.data.__proto__ === FormData.prototype
+        //   || config.url.endsWith('path')
+        //   || config.url.endsWith('mark')
+        //   || config.url.endsWith('patchs')
+        // ) {
 
-          // } else {
-            // config.data = qs.stringify(config.data)
-          // }
+        // } else {
+        // config.data = qs.stringify(config.data)
+        // }
         // }
 
         return config
       },
-
       error => {
         // 请求错误时
-        console.log('request:', error)
+        console.log('request:', error, 'err')
         // 1. 判断请求超时
         // if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
         //   console.log('timeout请求超时')
@@ -71,23 +65,7 @@ export default function $axios(options) {
     // response 拦截器
     instance.interceptors.response.use(
       response => {
-        let data;
-        // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
-        // if (response.data == undefined) {
-        //   data = JSON.parse(response.request.responseText)
-        // } else {
-        //   data = response.data
-        // }
-
-        // 根据返回的code值来做不同的处理
-      
-        // 若不是正确的返回code，且已经登录，就抛出错误
-        // const err = new Error(data.desc)
-        // err.data = data
-        // err.response = response
-        // throw err
-
-        return data
+        return response
       },
       err => {
         if (err && err.response) {
@@ -128,7 +106,7 @@ export default function $axios(options) {
             default:
           }
         }
-        console.error(err)
+        console.log(err)
         return Promise.reject(err) // 返回接口返回的错误信息
       }
     )
