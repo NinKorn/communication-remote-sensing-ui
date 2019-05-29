@@ -8,13 +8,15 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './lib/style.css'
 import './lib/font/iconfont.css'
-import 'swiper/dist/css/swiper.css'//这里注意具体看使用的版本是否需要引入样式，以及具体位置。
+import 'swiper/dist/css/swiper.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 
 import headerMain from './components/headerMain'
 import footer from './components/footer'
+import sIdentify from './components/identify'
+Vue.component('s-identify',sIdentify)
 Vue.component('header-main', headerMain)
 Vue.component('footer-main', footer)
 

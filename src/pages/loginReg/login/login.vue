@@ -37,6 +37,9 @@
         .el-select {
           width: 100%;
         }
+        .code{
+          margin-left: 10px;
+        }
         .el-button--info {
           margin-left: 10px;
         }
@@ -85,9 +88,13 @@
           </el-form-item>
           <el-form-item label="验证码">
             <el-input v-model="form.vfCode"></el-input>
-            <el-button type="info">获取验证码</el-button>
+            <!-- <el-button type="info">获取验证码</el-button> -->
+            <div class="code" @click="refreshCode">
+              <s-identify :identifyCode="identifyCode"></s-identify>
+            </div>
           </el-form-item>
         </el-form>
+
         <div class="button">
           <el-button type="primary">登陆</el-button>
         </div>
@@ -110,6 +117,8 @@ export default {
       }
     };
     return {
+      identifyCodes: "1234567890",
+      identifyCode: "",
       form: {
         name: "",
         region: "",
@@ -123,6 +132,21 @@ export default {
     };
   },
   methods: {
+    randomNum(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
+    refreshCode() {
+      this.identifyCode = "";
+      this.makeCode(this.identifyCodes, 4);
+    },
+    makeCode(o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[
+          this.randomNum(0, this.identifyCodes.length)
+        ];
+      }
+      console.log(this.identifyCode);
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
